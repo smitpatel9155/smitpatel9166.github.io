@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClassTools PowerSearch</title>
+<style>
+.grid-item
+{
+float:left;margin:5px;
+border:1px black solid;
+padding:10px;
+}
+.grid-sizer,
+.grid-item { width: 100%; }
+body,html
+{
+background:#FF0;	
+}
+#grid{
+width:80%;
+margin:auto;
+overflow:hidden;
+padding:5px 10px 5px 10px;
+background:white;
+border: 1px black solid;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}
+hr
+{
+margin:20px;	
+}
+input
+{
+background:yellow;	
+}
+#s
+{
+font-size:x-large;	
+}
+</style>
+<link href="../_SEARCH/style.css" rel="stylesheet" type="text/css">
+<script src="../ajax/libs/jquery/3-1-0/jquery.min.js"></script>
+<script>
+function go()
+{
+s=$.trim($("#s").val());
+if(s.length<3){alert("Search term too small.");return}
+$("#but").html("Searching...please wait...")
+//$("#prem").val(premiumUser)
+document.theform.submit()
+}
+</script>
+</head>
+<body>
+<style>a:visited{color:purple;}</style>
+<div id="grid">
+<p align="center"><a href="../index.html"><img src="../classtools_premium/logo.gif" align="center" /></a></p>
+<div id="wrapper" >
+  <!-- <img src="search.png" align="right" width="300px" height="300px" /> -->
+  <h1 align="center">PowerSearch!</h1>
+  <h2 align="center">Search thousands of <a href="../index.html">classtools</a> templates to use immediately with your classes.</h2>
+  <h3 align="center">Use this gallery of recently created templates for inspiration, or directly embed these resources into your own blog, website or wiki!</h3>
+  <hr />
+  <form id="theform" name="theform" method="POST" action="">
+    <h2>Search by keyword</h2>
+    <p>Separate key words/phrases with a comma (e.g. history, Tudors, Henry VIII). </p>
+    <table><tr><td>
+	  <input type="text" name="s" id="s" value="" /></td><td>
+    <span id="but" style="display:none"><input type="button" name="button" id="button" value="Submit" onclick="go()" /></span></td></tr></table>
+	  <input type="hidden" id="prem" name="prem" value="" />
+	</p>
+  </form> 
+  <hr />
+  <h2>Search by subject</h2>
+  <ul class='-center'>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='English.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         English
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Biology.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Biology
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Computing.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Computing
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Chemistry.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Chemistry
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Physics.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Physics
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Business.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Business
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Art.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Art
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Geography.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Geography
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='History.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         History
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Mathematics.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Mathematics
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Music.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Music
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Sport.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Sport
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Design-Technology.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Design-Technology
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='French.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         French
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Spanish.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Spanish
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='German.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         German
+        </h3>
+      </div>
+    </div>
+  </li></a>  
+  </ul>
+  <hr />
+  <h2>Search by Template</h2>
+	<h3><a href="../index.html">SOLO Hexagons</a> | <a href="../index.html">Connect Fours</a> | <a href="../index.html">Crossword</a> | <a href="../_SEARCH/index_template_arcade.html">Arcade Game</a> | <a href="../index.html">Fakebook</a> | <a href="../index.html">Pacman</a> | <a href="../index.html">Diamond9</a> | <a href="../index.html">Burger</a> | <a href="../index.html">Dustbin</a> | <a href="../index.html">Fishbone</a> | <a href="../index.html">Jigsaw</a> | <a href="../index.html">Lights Out</a> | <a href="../index.html">Living Graph</a> | <a href="../index.html">Mission MapQuest</a> | <a href="../index.html">PostIt</a> | <a href="../index.html">QR Challenge</a> |<a href="../index.html">Target</a> | <a href="../index.html">Timeline</a> | <a href="../index.html">Venn</a> |<a href="../index.html">Telescopic</a></h3>
+ <div align="center">   
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='hexagon.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         hexagon
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='connect.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         connect
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='crossword.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         crossword
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../_SEARCH/index_template_arcade.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='arcade.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         arcade
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='Fakebook.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         Fakebook
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='diamond9.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         diamond9
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='burger.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         burger
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='fishbone.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         fishbone
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='dustbin.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         dustbin
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='jigsaw.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         jigsaw
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='lights_out.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         lights_out
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='livingGraph.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         livingGraph
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='mapgame.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         mapgame
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='QR.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         QR
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='target.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         target
+        </h3>
+      </div>
+    </div>
+  </li></a>
+	<a href='../index.html'><li>
+    <div class='w'>
+      <div class='f'>
+        <svg viewBox='0 0 180 180'>
+          <image height='100%' preserveAspectRatio='xMidYMid slice' width='100%' xlink:href='venn.jpg'></image>
+        </svg>
+      </div>
+      <div class='b'>
+        <h3>
+         venn
+        </h3>
+      </div>
+    </div>
+  </li></a>    
+ </div>   
+</div>
+<h1 id="loader">Results loading - please wait a few seconds</h1>
+<div id="results" style="display:none">
+</div>
+</div>
+<script>
+document.getElementById("but").style.display="block";
+document.getElementById("results").style.display="block";
+document.getElementById("loader").style.display="none";
+</script>
+<script src="../_SEARCH/cube.js"></script>
+</body>
+</html>
