@@ -1,0 +1,947 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>"Geography: Industry and Agriculture (165 questions)" - classtools.net</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../arcade/style.css" type="text/css" />
+<script src="../ajax/libs/jquery/1-11-0/jquery.min.js" ></script>
+<script type="text/javascript" src="../arcade/save.js"></script>
+<script type="text/javascript" src="../arcade/functions-tablet.js"></script>
+<script type="text/javascript" src="../arcade/wellDone.js"></script>
+<script type="text/javascript" src="../arcade/apprise/min.js"></script>
+<link rel="stylesheet" href="../arcade/apprise/style.css" type="text/css" />
+<link rel="stylesheet" href="../arcade/colorbox/colorbox.css" />
+<link rel="stylesheet" href="../arcade/animate.css" />
+<script src="../arcade/morphext.min.js"></script>
+<link rel="stylesheet" href="../arcade/morphext.css" />
+<script src="../arcade/colorbox/jquery.colorbox.js"></script>
+<link rel="stylesheet" href="../arcade/craftyslide/css/craftyslide.css" />
+<script>
+	direction=""
+function printable()
+{
+my_form=document.createElement('FORM');
+my_form.name='myform';
+my_form.method='POST';
+my_form.target="_blank"
+my_form.action='//www.classtools.net/shorturl/pdf-creator/generatePDF.php';
+my_tb=document.createElement('INPUT');
+my_tb.type='hidden';
+my_tb.name='data';
+my_tb.value='';
+my_form.appendChild(my_tb);
+document.getElementById("formBit").appendChild(my_form);
+}
+function printIt(n)
+{
+	ctcredit="<p align='center'>Created using the Arcade Game Generator at <a href='http://www.classtools.net'>www.classtools.net</a><br />";
+	ctcredit2="For the interactive version, use this link: <a href='http://www.classtools.net/arcade/samples_othergeographyindustry'>http://www.classtools.net/arcade/samples_othergeographyindustry</a></p>";
+	if(n==1)
+	{
+	document.forms["myform"].data.value="<page><h1 align='center'>"+theTitle+"</h1>"+ctcredit+ctcredit2+"<p align='center'><img src='http://www.classtools.net/classtools_premium/logo_mini.gif' /></p>"+qlistprintable+"<p align='center'><img src='http://www.classtools.net/classtools_premium/logo_mini.gif' /></p></page>"
+	}
+	if(n==2)
+	{
+	if(premiumUser!=1){apprise("This is a CLASSTOOLS PREMIUM feature. <p>Please login using the link at the bottom of the screen.");return}
+	document.forms["myform"].data.value="<page><h1 align='center'>"+theTitle+"</h1>"+ctcredit+ctcredit2+"<p align='center'><img src='http://www.classtools.net/classtools_premium/logo_mini.gif' /></p>"+qlistprintable2+"<p align='center'><img src='http://www.classtools.net/classtools_premium/logo_mini.gif' /></p></page>"	
+	}
+	if(n==3)
+	{
+	bingoHTML="";
+	for(bi=0;bi<10;bi++)
+		{
+		bingolist=generateBingoCards();	
+		bingoHTML+="<page><h1 align='center'>"+theTitle+"</h1><h2 align='center'>BINGO CARDS!</h2>"+ctcredit+ctcredit2+bingolist+"<p></p><hr><p></p>"	
+		bingolist=generateBingoCards();	
+		bingoHTML+=bingolist+"</page>";
+		}
+	document.forms["myform"].data.value=bingoHTML;
+	}
+	document.forms["myform"].submit();
+}
+function generateBingoCards()
+{
+county=0
+if(bingoAnswers.length<25){alert("There are not enough answers to generate bingo cards (25 questions minimum)");return}
+bin='<div align="center"><table align="center" style="border:1px black solid" width="100%" border="1" cellpadding="15">'
+for(sh=0;sh<500;sh++)
+	{
+	ran1=Math.floor(Math.random()*(bingoAnswers.length-1));
+	ran2=Math.floor(Math.random()*(bingoAnswers.length-1));
+	temp=bingoAnswers[ran1]
+	bingoAnswers[ran1]=bingoAnswers[ran2]
+	bingoAnswers[ran2]=temp
+	}
+for(var x=1;x<=5;x++)
+	{
+	bin+="<tr>";
+	for(var n=1; n<=5;n++)
+		{
+		if(x==3 && n==3)
+			{
+			bin+="<td align='center'><img src='http://www.classtools.net/classtools_premium/logo_minimini.gif' /></td>";
+			}
+		else{bin+="<td align='center'><br>"+bingoAnswers[county]+"<br>&nbsp;</td>";}
+		county++;
+		}
+		bin+="</tr>";
+	}
+bin+="</table></div>";
+return bin;
+}
+function removAds()
+{
+w=$(window).width()/2 
+console.log("called");
+if ( typeof map == 'undefined'){console.log("returning");return}
+console.log("removing ads");
+setTimeout('$("#ad").hide();',1000)
+setTimeout('$("#ads3").html("");',1000)
+offsetH=w-(map[0].length*blockwidth)/2
+offsetH=Math.floor(offsetH/blockwidth)*blockwidth
+w=blockwidth*(map[0].length-2)
+h=blockwidth*(map.length-2)
+resizeOverlays()
+}
+editReq=false
+highscore=0;
+correctPW=""
+theTitle="";
+createdByPremiumUser=0;
+loadedData="";
+theFile="";
+minimumHS=0;//min score to get onto HS board.
+leaderBoard="";
+authorType='viewExisting';theTitle="Geography: Industry and Agriculture (165 questions)";theFile="othergeographyindustry";theFolder="samples";loadedData="What is the 3rd Industry sector?*Tertiary*Quaternary*Secondary*Primary\nWhich one of these is a type of Primary Industry?*Forestry*Internet*Pottery Making*Fireman\nWhich one of these is the extraction of raw materials?*Primary Industry*Tertiary Industry*Secondary Industry*Quaternary Industry\nWhich sector is the exchanging of information?*Quaternary*Secondary*Tertiary*Primary\nWhich one of these countries are  in the hot banana?*Switzerland*Greece*Spain*Ireland\nWhat is the area where Industry and Population are not as concentrated on?*Periphery*Capital city*Core Region*Pheriphery\nWhich of these countries are in the periphery?*Denmark*England*France*Italy\nWhat is labour?*workforce*Power*Government party*Transport\nWhat is a conorbation?*Merge of two cities*Seperation of cities*A ship*A type of motorway\nWhat is the best place to build a mill or factory?*Flat land*London*The Downs*A river in Spain\nHow would workers at a textile mill transport their goods?*Railway*Car*Lorry*Aeroplane\nWhich of these places are not in the EU?*Switzerland*Luxembourg*Rome*Amsterdam\nWhere is secondary Industry most important in England?*Midlands*South West*East Anglia*Yorkshire\nWhat was  source of power in an old textile mill?*Water Power*Wind*Electricity*Solar\nWhich type of industry is mostly used in East Anglia in 1991?*Tertiary*Secondary*Primary*Quaternary\nWhich of these is an essential element in the making of steel?*Limestone*Greenstone*Bluestone*Redstone\nWhich of these is essential in building an industrial region?*Flat Land*Wavy Land*Scrap Heap*A Aump\nWhich of this is a type of industry?*Sunrise*Sunset*Moonrise*Moonset\nWhich of these is a famous German industrial region?*Ruhr*Rhine*Thames*Seine\nWhich of these is a city in the Ruhr conurbation?*Essen*Eis*Pommes Frites*Sesame Seed\nThe Ruhr Industrial Region is named after what?*River*Road*Swamp*Meadow\nIn 1800 what would have been used as a power supply?*Rivers*Electricity*Potatoes*Milk\nWhich of these is not likely to be made from steel?*Iron*Ships*Bridges*Trains\nWhich of these is not essential for an industrial business?*Limestone*Transport*Workers*Power Supply\nWhich of these categories of business is the least common in the UK?*Quaternary*Primary*Secondary*Tertiary\nA teacher would belong to which category of industry?*Tertiary*Quaternary*Secondary*Primary\nManufacturing deals with what element of industry?*Secondary*Primary*Tertiary*Quaternary\nAround what period did the Industrial Revolution begin?*1800*1750*1850*1900\nWhich of these is a periphary country?*Greece*France*Germany*Belgium\nWhich road is the Wolverhampton Science Park on?*A449*A4*A550*A453\nWhat  is the joining of cities called?*A connurbation*A super city*A  communicating city*A link city\nWhat sector does banking belong to?*Tertiary*Secondary*Quaternary*Primary\nWhich sector extracts raw materials?*Primary*Tertiary*Quaternary*secondary\nWhich area can you not build on in a connurbation?*A green Lung*A national park*An enviroment Park*A grade ''A'' area\nWhat has happened to the secondary sector overtime?*Risen\/Peaked\/fallen*Fallen straight down*Risen straight up*Stayed the same\nWhich are the two largest cities in the Ruhr connurbation?*Dortmund and Duisburg*Belin and Essen*Bochum and Gesenkirchen*Munich ang Colonge\nWhich of these industries rely on Oil?*Glassworks*Cosmetics industry*Furniture industry*Paint industry\nWhich type of industry involves scientific research?*Sunrise*Smokestack*New World*Futurama research\nWhat was in decline so the Ruhr plan was needed?*Industry*Cars*Food*Buildings\nWhich of these is important to the steel industry?*Limestone*A closeby lake*A park*A cotton plantation\nWhat sector is a scientist employed in?*Quaternary*Tertiary*Primary*Secondry\nWhat is the area around the core called?*Peripheral*Outside gap*Countryside*Qwersda\nWhat is the amount a country makes mured in?*GDP*GWP*GRP*GBY\nWhat is the Hot Banana of Europe an example of?*A core region*A hive region*A centre of Industry*An Industrial Super City\nWhich of these countries is in the Hot Banana?*Austria*Spain*Greece*Finland\nWhat is a core region? *Where there is industry*The centre of the apple*The centre of a country*Where people live\nWhat is Europe's core region called?*The hot banana*The windy apple*The big apple*The cold pear\nWhat industry involves new clean industries?*Sun belt*Smoke rise*Smoke screen*Sun stack\nHow many types of industry are there?*4*1*2*5\nWhat is the name of the period when Britain used steam power?*Industrial Revolution*Silicon Revolution*Age of Antiquity*Steam Age\nWhat is the most conmmon type of industry?*Tertiary*Secondary*Primary*Mezoic\nWhat is the most modern type of industry?*Quaternary*Quatenary*Quaternery*Kwaterery\nWhich one of these is not part of Primary industry?*Steel mining*Fishing *Farming*Forestry\nIs Switzerland part of the EU*Yes*No*Perhaps*Maybe\nWhen did the Industrial Revolution start?*200 years ago*150 years ago*2000 years ago*1800 years ago\nwhat should a good factory have?*All things mentioned*Workers *Flat land*Good transport links\nWhich one of these is not part of the hot banana?*Poland*Luxemburg*Italy*Switzerland\nWhat is the name of Wolverhampton's business park?*Science park*Sun belt park*Technology park*Business park\nHow is steel made?*Car and Iron*Limestone and Iron*Sugar and spice*All things nice\nHow many people were employed in Teriary industry in 1993?*560*561*1561*1560\nWhat is the biggest section of occupational structure in the E.U.?*Tertiary*Primary*Secondary*Quaternary\nWhich of these cities is not in the 'Hot Banana'?*Paris*London*Milan*Franfurt\nWhat is Primary Industry?*Fishing*Dancing*Reading Lessons*Baking\nWhere is the River Ruhr situated?*Germany*Liverpool*Austria*Sweeden\nWhat country is not in the E.U. TODAY?*Switzerland*Spain*Germany*France\nWhat are the two main cities in the Ruhr conurbation?*Duisbourg and Dortmund*Essen and Bochum*Glasgow and Stoke*Lyon and Costa-Del-Sol\nWhere were the Green Lungs used?*The Ruhr*Coventry*Bern*Sydney\nWhat do Sunrise Industries like to have?*Countryside*Sun*The city*Wars\nWhat are the three materials used to make Steel?*Coal, Limestone and Iron *Coal, wood and Nickel*Iron, Gold and Platinum*Silver, Limestone and Tin\nHow long ago were the first attempts of the Ruhr plan?*1920*1900*2000*1946\nIndustrial location. You don't want:*Farmyard nearby*Space*Transport*Town nearby\nHow many people were employed in Tertiary work in 1993?*Over 500 000*Under 500*Under 5000*Under 50\nWhat is the area of country that supplies the Core region?*Periphery region*Profita rolls*Profit county*Poll Land\nWhat is the most important sector in the West and East Midlands?*Secondary*Primary*Quarternary*Tertiary\nName a small town along the Rhine*Boppar*Vienna*Harrow*Liebliegah\nWhat is the definition of a Smokestack Industry?*Old and Dirty*Clean and Bright*Small and old*Large and New\nWhat is the definition of a Sunrise Industry?*Modern and Hi - tech*Old and Modern*New but old fashioned*Clean and Modern\nWhat type of Industry sector contains extracting raw materials from the environment?*Primary*Tertiary*Secondary*Quaternary\nWhat main change was made to Ruhr because of the 'Ruhr Plan' by the government?*Green lungs*New bins*More fitted alarms*More schools\nWhat symbol is used on an Industrial map for a Steelworks factory?*S*SW*Sw*s\nWhich one of these towns is situated in or around Ruhr?*Gelenskirchen*Empscher*Rhine*Berlin\nWhat is the definition of conurbation?*Where towns\/cities join*Where rivers join*Where trees join*Where countries join?\nWhat are the three main cities in the Hot Banana?*London, Frankfurt, Milan*Frankfurt, London, Berlin*Milan, Berlin, Benfica*Berlin, London, Dortmund\nWhat three materials are used to produce Steel?*Iron Ore, Limestone, Coal*Iron Ore, Plastic, Wood *Limestone, Wood, Paper*Plastic, Iron, Wood\nWhat is the definition of the Core?*A concentrated population*An apple after eating*A town with 100 trees*A town with no population\nWha is the name of the region surrounding the core?*Periphery*Hot Banana*Core number two*Region circumference\nWhich one of the following countries does not form the EU?*Switzerland*Belgium*Luxembourg*Austria\nWhich of these countries are in the EU but not the Hot Banana?*Greece*Germany*France*England\nTertiary jobs came more popular between...?*1988 and 19993*1942 - 1988*1912 and 1956*1988 - 2000\nWhich one of the following is not a reason for the declination of Primary Industry?*Walkers have protested*Farmers out of Buisness*Coal mines have shut*Poor pay in Primary jobs\nHow many different sectors in industry are there?*4*17*3*1023\nWhat is the old type of industry called?*Smokestack*Somerfield*Sunbelt*Boring\nWhat is Occupational structure?*% of people in a sector*Buildings*Department stores*Hamster wheels\nWhich of these words are spelt incorrectly?*Qaternary*Primary*Tertiary*Smokestack\nWhich of these means giving a service to others*Tertiary*Primary*Secondary*Quaternary\nWhich of these cities are in the Ruhr?*Essen*Wolverhampton*Donnersburg*Rhur\nWhich of these rivers are in the Ruhr?*River Emscher*River Severn*River Essen*River Dortmund\nWhere were Green Lungs used to help the environment?*Ruhr*London*Rosberg*Duisberg\nWhat is needed to make iron?*Coal, Limestone, Iron Ore*Bricks & Cement*Wood, metal & rubber*Glass,granite & lead\nHow many major cities are there in the Ruhr?*5*83*4*6\nWhich of these jumbled up words make the word Quaternary?*urnyQatear*yanretauQ*terenQtuar*Qaueryrae\nWhich cities are in the Hot Banana?*London, Frankfurt & Milan*Oslo, Wellington & Paris*Birmingham, Berlin & Bern*Amsterdam, Helsinki & T&T\nWhich of these countries is in the European periphery?*Poland*UK*France*Luxembourg\nWhich of these  contries are in the European Core?*Germany*Nigeria*Saudi Arabia*Denmark\nWhat is the other name for the industry that involves manufacturing?*Secondary*Primary*Tertiary*Quarternary \nWhat is the name given to the Industrial sector which provides a service for others? *Tertiary*Secondary*Primary*Quaternary\nWhat is a sunrise Industry?*modern hightech industrie*industries in the forest*industries near the beach*industries with less work\nWhat would be an advantage for a cement works located near limestone hills?*cheaper transport*privacy*easierv to make cement th*more limestone to make ce\nIn the Ruhr Plan, what did they do about lack of natural scenery?*set up green lungs*bring more wildlife*give farmers less land*allow people more land in\nWhat is Occupational Stucture?*the percentage of the amo*wher industries are locat*the way in which people *types of buiding industri\nWhich one of these jobs are an example of a Quaternary Industry?*Accountancy*Retailing*Electronics*hairdressing\nWhich one of these is in a core region?*Birmingham*Stafford*Weymouth*Dorchester\nWhy are there less workers in primary industry than in any other?*low pay*bad facilities*bad work places*simply not respectful\nWhich of these places are an example of a Periphery region, for Birmingham?*South Wales*Cannok*Penkridge*Bridgnorth\nWhich of these are one of the reasons why more people now are working in the Tertiary sector than before?*better pay*more facilities*more respect*nice work places\nWhich one of these country is located in the Hot Banana?*Austria*Spain *Portugal*Finland\nWhy does a bakery need to be in a town?*bread cannot travel long*more money*more people*ber work place\nWhich of these is a name of a city in the Ruhr?*Bochum*Frankfurt*Berlin*Dsseldorf\nWhat is a smokestack Industry?*old, dirty industry*small industry*poor industry*industry with little land\nWhich of these Industries takes out raw materials from the ground?*primary*secondary*quaternary*Tertiary\nWhere is a typical high-tech industry located?*Countryside*Suburban Areas*Forests*Big Cities\nWhat is the area of high-tech industries in the USA called?*Silicon Valley*Silicon Plain*Silicon Desert*Silicon City\nIn what country are the IBM headquarters located?*USA*Egypt*Japan*England\nWhat products do IBM produce?*Computer Systems*Paper*Sandwiches*Pottery\nWhat is Silicon Glen the Scottish equivalent to?*Silicon Valley*Russian Summer*Silicon Sun*IBM\nResearch is carried out in what industry?*Quaternary Industries*Primary Industries*Secondary Industries*Tertiary Industries\nWhat is Silicon used for?*Computer Chips*Cars*Planes*Computer Screens\nWhat is the main type of farming in Britain?*Arable*Pastoral*Dairy*Mediterranean\nWhat have horses been replaced by for farming?*Tractors*People*Computers*Sheep\nWhat has happened to farm labour over the years? Has it:*Decreased*Increased*Stayed the same*Been Abolished\nWhat has happened to farming over the world? Has it:*Decreased*Increased*Stayed the same*Disappeared\nHave high-tech industries:*Increased*Decreased*Stayed the same*Vanished\nWhat is Arable farming? Is it:*Corn, wheat, etc*Milk, cheese, etc*Chicken, turkey, etc*Grazing\nIs making Cars:*Secondary Industry*Primary Industry*Tertiary Industry*Quaternary Industry\nIs cheese making:*Dairy Farming*Arable Farming*Olive Farming*Mediterranean Farming\nIs farming a ......industry?*Primary*Quaternary*Secondary*Tertiary\nWhat is Quaternary industry?*Concerned with research*Resorces from sea or land*Providing a service*Makes things for people\nWhat is C.A.P.*Common Sgriculture Policy*A cap you wear*Common acess Progress*Carefully  agreed process\nWhat industry does lawyer go in?*Tertiary*Primary*Secondary*Primary\nWhat is arable farming?*Crops*Nohting*Live stock*Milking cows\nWhat is Pastiral farming?*Live stock*Nothing*Crops*Milking cows\nInisland, which farming is likely to be found?*Dairy*Mixed*Sheep*Market gardening\nIn Scotland which farming is likely to be foung?*Sheep*mixed*Dairy*Arable\nWhat farming is likely to be found in Plymouth?*Market gardening*Mixed*Sheep*Arable \nWhat farming is likely to be found in London?*Arable*Mixed*Sheep*Dairy\nWhat is industry is a Plumber*Tertiary*Quaternary*Secondary*Primary\nWhat industry is a Minor?*Primary*Quaternary*Secondary*Tertiary\nWhy are there less workers now?*More tractors do the work*They are ill*It's not true*can't qulifly for the job\nWhat has ahppened to the environment so far?*hedges have been cut down*hedges are close together*More trees*No factory\nComplete this sentence, 'The........ tractors the less workers.*More*Less*Red*Yellow\nWhich geographical factor is not important when deciding the location of a business?*Unemployment*Water supply*Prevailing wind*Waste disposal\nYou are opening a factory producing explosives. What location factor is most important?*Proximity to housing*Guy Fawkes Night*Arsonists*Boxes of matches\nWhich factor is important when considering the cost of site?*Rates payable to the loca*Availability of labour*Training facilities*Water supply\nWhy should an entrepreneur be concerned about good road links for his parcel delivery business?*Speed up his deliveries*So he can get to the pub *He hates trains*He uses diesel vans\nWhich of these factors does not effect decisions on location?*Sense of humour*Geography*Labour*Infrastructure\nWhich factor might you consider to be important when deciding where to open a telephone call centre?*Regional accent*Water supply*Raw materials*Access to railways\nWhich organisations do not offer advice on location of businesses?*Job centres*Local councils*TEC's*Governments\nWhich area of England built is wealth and reputation on the cotton trade?*North West*South East*Midlands*North East\nWhich English city is famous for its steel industry?*Sheffield*Newcastle*Nottingham*Manchester\nWhich financial factor is not important when deciding upon location?*Exchange rate*Grants available*Rates payable*Wage level locally\nHow could the weight of a product affect decisions on location?*Cost of transport *It could fall over*Too light to move*It might expand in heat\nWhere is the best place to open a gold mine?*Where the gold is*Near a river*Close to a labour force*Australia\nWhy would an electrical retailer open a shop next to another electrical retailer?*They can poach customers *Because they like them*The shop is empty*The rates are cheap\nWhat is the name of the global car company with a production site in Dagenham?*Ford*Honda*Nissan*BMW\nWhich area of the UK is famous for its potteries?*Midlands*South West*Strathclyde*East Anglia\n";leaderBoard="2105||Hi||1558376176\n";if(leaderBoard==null){leaderBoard=""};if(leaderBoard!=""){leaderBoard=leaderBoard.split("\n");leaderBoard.reverse()};theGame="pacman";
+FlashVersionExists='false'</script>
+<script type="text/javascript" src="../arcade/functions.js"></script>
+<script type="text/javascript" src="../arcade/randomQ.js"></script>
+<script type="text/javascript" src="../arcade/functions-qs.js"></script>
+<script type="text/javascript" src="../arcade/functions-hs.js"></script>
+<script>
+function goManic()
+{
+$("#sentPw1").val(correctPW);
+$("#manicForm").submit()	
+}
+function goAsteroids()
+{
+$("#sentPw2").val(correctPW);
+$("#asteroidsForm").submit()	
+}
+function goPong()
+{
+$("#sentPw3").val(correctPW);
+$("#pongForm").submit()	
+}
+function goWordshoot()
+{
+$("#sentPw4").val(correctPW);
+$("#wordshootForm").submit()	
+}
+function goFlashcards()
+{
+$("#sentPw5").val(correctPW);
+$("#flashcardForm").submit()	
+}
+function goSnake()
+{
+$("#sentPw6").val(correctPW);
+$("#snakeForm").submit()	
+}
+function flashV()
+{
+if(FlashVersionExists=="true")
+	{console.log("FLASH!");$("#oldVersAvail").show();}	
+}
+function rotateText()
+{
+$("#js-rotating").html(qlist);
+$("#js-rotating").Morphext({
+				animation: "flipInX", // Overrides default "bounceIn"
+    			separator: "|", // Overrides default ","
+    			speed: 5000, // Overrides default 2000
+                complete: function () {
+                }
+            });	
+}
+</script>
+</head>
+<body onload="printable();flashV();firstLoad();showIntro();if(editReq==true){editRequest()};">
+<style>
+html,body
+{
+margin: 0px;
+}
+.small
+{
+font-size:x-small;	
+}
+#loginBox
+{
+position:absolute;
+z-index:10;
+top:0px;
+left:10px;	
+color:black;
+}
+#login a:link {color:white;text-decoration:none; font-size:small;}
+#login a:active{color:white;text-decoration:none}
+#login a:visited{color:white;text-decoration:none}
+#login
+{
+font-family:Verdana, Geneva, sans-serif;
+z-index:9999;
+font-size:small;
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+text-align:left;
+margin:0px;
+background-color:#44619d;
+text-decoration:none;
+}
+</style>
+<script>
+fbtemplate=0;
+premiumUser=0;
+premiumUserName="";
+premiumUserPW="";
+function showFields()
+	{
+	t=$("#login").css("top");
+	z=$("#loginBox").css("top")
+	console.log("TOP POS = "+t+" "+z);
+	if(t=="auto"){console.log(1);$("#loginBox").css("top","-75px");}
+	z=t=$("#loginBox").css("top")
+	console.log("TOP POS = "+t+" "+z);
+	document.getElementById("login").style.display="block";
+	document.getElementById("loginFields").style.display="block"
+	}
+function hideFields()
+{
+	document.getElementById("loginFields").style.display="none"
+}
+function showLoginDetails()
+{
+document.getElementById("loginBtn").style.display="none"
+document.getElementById("loggedIn").innerHTML="<a href='#'>Logged in as "+	premiumUserName +"</a> | <a href='javascript:logout()'>Logout</a> | <a target='_blank' href='../index.html'>Home</a> | <a target='_blank' href='../fform.html'>Contact</a> |  <a target='_blank' href='../_SEARCH/index.html'>PowerSearch</a> | ";
+if(typeof savethefave == 'function') 
+	{document.getElementById("loggedIn").innerHTML+="<span id='favBar'><a href='javascript:savethefave()'>Add to Favourites</a> | </span>";}
+//IMPORTANT NOTE: "savethefave" belongs in the PARENT page, so can be customised in terms of specifying title / location of widget. This function in turn calls savefave() on THIS page.
+if(typeof removAds == 'function') {removAds()}
+document.getElementById("loggedIn").innerHTML+="<a href='javascript:viewfavs()'>View Favourites</a> | ";
+document.getElementById("loggedIn").innerHTML+='<a target="_blank" href="//www.classtools.net/templates/_ac.php">Account Status</a> | '
+document.getElementById("loggedIn").style.display="block"
+if(fbtemplate==1)
+	{
+	$('body').css({"padding":"20px 0 0 0"});
+	$('fixeddiv').css({"top":"5px"});
+	$("#loginDiv").hide();
+	$("#login").show();
+	}
+}
+function logout()
+{
+$.ajax({ url: '//www.classtools.net/templates/_logout.php',
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				document.getElementById("loginBtn").style.display="block"
+				document.getElementById("loggedIn").style.display="none"
+				premiumUser=0;
+                }
+			});	
+}
+function viewfavs()
+{self.location="//www.classtools.net/classtools_premium/user_templates.php?"+premiumUserName}
+function saveFave(theLoc,theTitle)
+{
+	temp=self.location+""
+	$.ajax({ url: '//www.classtools.net/classtools_premium/add_template_to_user_profile.php',
+			 data: {
+					widgetLoc:theLoc,
+					premTitle:theTitle
+			 		},
+			dataType: 'json',
+			type: 'post',
+			success: function(data) 
+				{
+				alert(data.theResult)
+                }
+			});
+}
+function doLoginNow()
+{
+subUsr=document.getElementById("username").value;
+subPw=document.getElementById("thepw").value;
+doLogin(subUsr,subPw)
+}
+function doLogin(subUsr,subPw)//can be called from above, or from the icons.swf 
+{
+	$.ajax({ url: '//www.classtools.net/templates/_login_manual.php',
+			 data: {
+					submUsr:subUsr,
+					submPw:subPw
+			 		},
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				hideFields();
+				if(data.success==1)
+					{
+					premiumUser=1
+					premiumUserName=subUsr;
+					premiumUserPW=subPw;
+					showLoginDetails()
+					}
+				else
+					{
+					alert(data.theResult)
+					}
+                }
+			});
+}
+</script>
+<div id="login">
+<table><tr><td>
+    <div id="loginBtn"><a href="../index.html" target="_blank">classtools.net Home</a> | <a href="javascript:showFields()">Premium Login</a> | <a target='_blank' href="https://www.facebook.com/Classtools">Facebook Fanpage</a>
+     | <a target='_blank' href="../_SEARCH/index.html">PowerSearch</a>
+      | <a target='_blank' href="../fform.html">Contact</a>
+    </div>
+    <div id="loggedIn">
+    </div>
+	<div id="loginBox">
+        <div id="loginFields" style="display:none">
+          <table width="10%" border="0" bgcolor="yellow" cellpadding="3px">
+            <tr>
+              <td>Username</td>
+              <td>
+                <input type="text" name="username" id="username"></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td><input type="password" name="thepw" id="thepw"></td>
+              <td><input type="button" name="button" id="button" value="Submit" onClick="doLoginNow()"></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small"><a target='_blank' href='//www.activehistory.co.uk/classtools_premium/index.htm'><span style="color:black">Not a member? Join Now!</span></a></td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+        </div>
+   </div>
+</td></tr></table>
+</div>
+<script>
+if(premiumUser==1)
+	{
+	showLoginDetails();
+	hideFields();
+	}
+fbtemplate=0;
+wheel=0;
+if(wheel==1)
+	{
+	//$("#loginDiv").hide();
+	$('#login').css({"padding":"0px","margin":"0px","top":"auto","bottom":"0px","background-color":"black"});
+	$('#loginBox').css({"top":"auto","bottom":"40px"});
+	$("#login").show();
+	}
+    if(typeof jQuery == 'undefined'){
+        var oScriptElem = document.createElement("script");
+        oScriptElem.type = "text/javascript";
+        oScriptElem.src = "../templates/jquery.js";
+        document.head.insertBefore(oScriptElem, document.head.getElementsByTagName("script")[0])
+    }
+</script>
+<div id="gameDiv">
+<div id="mappy">
+</div>
+<div id="questionDiv">
+<h2 align="center" id="qintro">To continue with the game, you need to answer a few questions...!</h2>
+  <p><strong>Question</strong></p>
+  <p><span id="questionSpan">yada</span></p>
+  <table width="99%" border="0" cellpadding="1">
+    <tr>
+      <td width="6%"><img src="../arcade/images/fruits/apple.gif" width="40" height="40" /></td>
+      <td width="94%"><span id="ans1">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td><img src="../arcade/images/fruits/cherries.gif" width="40" height="39" /></td>
+      <td><span id="ans2">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td><img src="../arcade/images/fruits/orange.gif" width="40" height="41" /></td>
+      <td><span id="ans3">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td><img src="../arcade/images/fruits/strawberry.gif" width="40" height="44" /></td>
+      <td><span id="ans4">&nbsp;</span></td>
+    </tr>
+  </table>
+  <p style="display:none"><a href="javascript:questionRead()">ok</a></p>
+  <hr />
+  <p><a class='btn' href="javascript:showLeaderboard()">View Leaderboard</a></p>
+</div>
+<div id="introDiv" class="curve">
+<h2 style="color:red" id="theTitleSpan">Arcade Game Generator</h2>
+<div id="slideshow" align="center" style="margin:auto">
+                    <ul id="pics">
+                    <li><a href='javascript:displayQuestion(1)'><img src="../arcade/craftyslide/images/pac.jpg" alt="" title="PacMan - gain extra lives by answering the questions correctly" />
+                    </a></li>
+                    <li><a href='javascript:goSnake()'><img src="../arcade/craftyslide/images/snake.jpg" alt="" title="Snake - eat the correct answers!" />
+                    </a></li>
+                    <li><a href='javascript:goManic()'><img src="../arcade/craftyslide/images/manic.jpg" alt="" title="Manic Miner - a classic platform game turned into an educational quiz" />
+                    </a></li>
+                    <li><a href='javascript:goAsteroids()'><img src="../arcade/craftyslide/images/asteroids.jpg" alt="" title="Asteroids - shoot the correct answer to get onto the leaderboard!" />
+                    </a></li>
+                    <li><a href='javascript:goWordshoot()'><img src="../arcade/craftyslide/images/wordshoot.jpg" alt="" title="Wordshoot - great fun with a Wii remote!" />
+                    </a></li>
+                    <li><a href='javascript:goFlaschards()'><img src="../arcade/craftyslide/images/flashcards.jpg" alt="" title="Flashcards - for some intensive revision" />
+                    </a></li>
+                    <li><a href='javascript:goPong()'><img src="../arcade/craftyslide/images/pong.jpg" alt="" title="Pong - with both a one-player and a two-player option!" />
+                    </a></li>
+                     <!-- <li><img src="craftyslide/images/cannonball.jpg" alt="" title="Cannonball Fun - land your cannonball on the correct answer!" />
+                      </li>
+                      <li>
+                        <img src="craftyslide/images/pairs.jpg" alt="" title="Matching Pairs - race against the clock!" />
+                      </li>  -->              
+                    </ul>
+</div>  
+<script src="../arcade/craftyslide/js/craftyslide.min.js"></script>
+<script>
+				  		(function($){
+									$.fn.shuffle = function() {
+										var allElems = this.get(),
+											getRandom = function(max) {
+												return Math.floor(Math.random() * max);
+											},
+											shuffled = $.map(allElems, function(){
+												var random = getRandom(allElems.length),
+													randEl = $(allElems[random]).clone(true)[0];
+												allElems.splice(random, 1);
+												return randEl;
+										   });
+										this.each(function(i){
+											$(this).replaceWith($(shuffled[i]));
+										});
+										return $(shuffled);
+									};
+								})(jQuery);
+				 $('ul#pics li').shuffle();
+                    $("#slideshow").craftyslide({
+					  'width': 468,
+					  'height': 200,
+					  'pagination': false,
+					  'fadetime': 500,
+					  'delay': 4000
+					});
+				 </script>
+<!-- <p><a href='javascript:displayQuestion(1)'><img src="images/pac.gif" width="250" height="167" /></a> <a href='javascript:goManic()'><img src="images/manic.gif" width="223" height="167" /></a></p> -->
+<span id='playSpan'> 
+<p align="center">What would you like to play?</p> 
+<p style="font-family:Verdana, Geneva, sans-serif;">
+<a class='btn2' href='javascript:$("'>PacMan</a> 
+<a class='btn2' href='javascript:goManic()'>Manic Miner</a> 
+<a class='btn2' href='javascript:goAsteroids()'>Asteroids</a>
+<a class='btn2' href='javascript:goSnake()'>Snake</a>
+<a class='btn2' href='javascript:goPong()'>Pong</a> 
+<a class='btn2' href='javascript:goWordshoot()'>Wordshoot</a> 
+<a class='btn2' href='javascript:goFlashcards()'>Flashcards</a> 
+</p>
+<p id="oldVersAvail" style="display:none;background:yellow;font-size:smaller;font-family:Verdana, Geneva, sans-serif">To view the old Flash verions of these games (which will be permanently retired in Summer 2017), <b>click <a href='../index.html' target='_top'>here</b></a>.</p>
+<p>
+<a href="../index.html" target="_top"><span align="center"><img width="30%" src="../classtools_premium/logoTrans.gif" /></span></a>
+</p>
+<p>
+<a class='btn' href='javascript:editRequest()'>Edit</a><a class='btn' href="javascript:showEmbedOptions()">Share/Embed</a><a class='btn' href='javascript:showSamples()'>Samples</a>
+<!--
+<p>
+<a class='btn' href='javascript:printIt(1)'>Print (questions)</a>
+<a class='btn' href='javascript:printIt(2)'>Print (questions+answers)</a>
+<a class='btn' href='javascript:printIt(3)'>Print (20 bingo cards)</a>
+</p>
+-->
+<div>
+<span style="color:grey;font-size:small" id="js-rotating"></span></div>
+</p>
+</span> 
+<br /><a class='btn' href='javascript:newGame()'>Create New Game!</a>
+</div>
+<div id="gameOverDiv">
+<h1>GAME OVER</h1>
+<h2>FINAL SCORE: <span id="scoreSpan" style="color:red"></span></h2>
+<h3 id="gameOverQ" style="color:green"></h3>
+<h2 id="gameOverAns" style="color:red"></h2>
+</div>
+<div id="highScoreDiv">
+<h1>LEADERBOARD</h1>
+<h2 style="color:red">High scores within the past 36 hours</h2><h3><a href="javascript:showIntro()">Continue</a></h3>
+<span id="hsSpan"></span>
+</div>
+<div id="scoreDiv" style="display:none"></div>
+<div id="coOrds" style="position:absolute;top:0px;right:0px;display:none"></div>
+<audio id="eatingAudio" ><source src="./sounds/waka.ogg" type="audio/ogg"><source src="./sounds/waka.mp3" type="audio/mpeg"></audio>
+<audio id="askQAudio" ><source src="./sounds/askq.ogg" type="audio/ogg"><source src="./sounds/askq.mp3" type="audio/mpeg"></audio>
+<audio id="themeAudio" ><source src="./sounds/theme.ogg" type="audio/ogg"><source src="./sounds/theme.mp3" type="audio/mpeg"></audio>
+<audio id="fruitAudio" ><source src="./sounds/cherry.ogg" type="audio/ogg"><source src="./sounds/cherry.mp3" type="audio/mpeg"></audio>
+<audio id="correctAudio" ><source src="./sounds/correct.ogg" type="audio/ogg"><source src="./sounds/correct.mp3" type="audio/mpeg"></audio>
+<audio id="deadAudio" ><source src="./sounds/dead.ogg" type="audio/ogg"><source src="./sounds/dead.mp3" type="audio/mpeg"></audio>
+<script>
+function playSound(id) {
+	audio = document.getElementById(id);
+	audio.play();
+}
+</script>
+</div><!--end of main div-->
+<!--EDITGAME DIV-->
+<style>
+textarea, input
+{
+background-color:#FFFFCC;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+</style>
+<script>
+helpText="To create your own quiz, just follow these simple steps!\n\n"
+helpText+="1. Type your questions into this box (a minimum of 10 questions, but as many as you like) in the following format:\n\n"
+helpText+="Question A*correct answer*incorrect answer 1*incorrect answer 2*incorrect answer 3\n"
+helpText+="Question B*correct answer*incorrect answer 1*incorrect answer 2*incorrect answer 3\n\n"
+helpText+="2. Each question should be placed on a fresh line.\n\n================\n\n"
+helpText+="3. TIP: You can also submit some or all of your questions with just ONE answer!\n\nQuestion*correct answer\nQuestion*correct answer"
+helpText+="\n\n(when only one possible answer is provided, the computer will generate some random 'incorrect' answers from your other questions)\n\n";
+helpText+="That's all there is to it!"
+qtext="In which year did World War One break out?*1914*1918*1939*1945\nWho was known as 'The King' of Rock 'n' Roll?*Elvis Presley\nWho wrote 'Ode to Autumn'?*Keats*Shelley*Byron*Wordsworth\nWho painted 'The Fighting Temeraire'?*Turner*Constable*Girtin*Picasso\n"
+qtext+="[etc...]\n\n[Note how you can submit just one answer, or up to three more incorrect answers, for the multiple choice format!]"
+function sample()
+{
+old=$("#qbox").val()
+$("#qbox").val(qtext);
+//document.getElementById("thekWords").value="*RELIGIOUS\nConcordat\nJesuits\nAnticlericalism\nGil Robles\nCEDA\n\n*SOCIO-ECONOMIC\nDepression\nLatifundia\nTragic Week\n\n*POLITICAL\nAlfonso XIII\nNational Front\nPopular Front\nJose Antonio de Rivera\nPrimo de Rivera\nAzana\nCNT\nCarlists\nFalange\nSotelo\nTwo Black Years\nCortes\n\n*REGIONALISM\nBasque\nCatalonia\nAsturias\n\n*MILITARY\nCuba\nMorocco\nAnnual\nHalf pay\nFranco\nMola\nSanjurjo"
+}
+function hidesample()
+{
+$("#qbox").val(old);
+//document.getElementById("thekWords").value="*RELIGIOUS\nConcordat\nJesuits\nAnticlericalism\nGil Robles\nCEDA\n\n*SOCIO-ECONOMIC\nDepression\nLatifundia\nTragic Week\n\n*POLITICAL\nAlfonso XIII\nNational Front\nPopular Front\nJose Antonio de Rivera\nPrimo de Rivera\nAzana\nCNT\nCarlists\nFalange\nSotelo\nTwo Black Years\nCortes\n\n*REGIONALISM\nBasque\nCatalonia\nAsturias\n\n*MILITARY\nCuba\nMorocco\nAnnual\nHalf pay\nFranco\nMola\nSanjurjo"
+}
+function help()
+{
+old=$("#qbox").val()
+$("#qbox").val(helpText);
+}
+function createIt()
+{
+newd=validate()
+if(newd==false){return}
+else
+	{
+	loadedData=$("#qbox").val()
+	theTitle=$("#titleBox").val()
+	if(theTitle==""){apprise("Please give your quiz a title");return}
+	var temp=premiumUserName;
+	if(temp==""){temp="NONE"}
+	saveit("arcade||PremiumUserName="+temp+"||\n*****\n"+loadedData+"\n*****\n"+theTitle)
+	entries=loadedData.split("\n");
+	qcounter=0;
+	firstLoad()
+	$("#theTitleSpan").html(theTitle);
+	}
+}
+function validate()
+{
+newq=new Array()
+temp=$("#qbox").val();
+temp=$.trim(temp);
+$("#qbox").val(temp)
+t=temp.split("\n");
+if(t.length<10){apprise("You must provide a minimum of 10 questions");return false}
+for(n=0;n<t.length;n++)
+	{
+	s=t[n].split("*");
+	if(s.length<2 & s[0]!="")
+		{
+		apprise("Each question/answer combination must be separated with an asterisk (i.e. question*answer, question*answer*incorrect answer)");return false
+		}
+	else
+		{
+		if(s[0]!="")
+			{newq.push(t[n]);}	
+		}
+	}
+return(newq);
+}
+function uploadCSV()
+{
+$("#uploaderDiv").show();
+$("#createDiv").hide()
+}
+function uploadCSVcanel()
+{
+$("#uploaderDiv").hide();
+$("#createDiv").fadeIn(500)
+}
+function uploadCSVdone(fileName)
+{
+$.get("./uploads/"+fileName+".csv", function(result) {
+	result=result.split(",");result=result.join("*");
+	result=result.split("\n");
+	for(n=0;n<result.length;n++)
+		{
+		if(result[n].charAt(result[n].length-1)=="*"){result[n]=result[n].substr(0,result[n].length-1)}	
+		}
+	result=result.join("\n");
+    $("#qbox").val(result)
+    });
+$("#uploaderDiv").fadeOut(500);
+$("#createDiv").fadeIn(500)
+}
+</script>
+<div id="createDiv" style="display:none;padding:10px 0 500px;margin-bottom:50px;height:100%;text-align:center;background:blue;position:relative;">
+<h2>Arcade Game Maker!</h2>
+<p style="font-family:Verdana, Geneva, sans-serif;font-size:small;text-align:left">
+Input just one set of questions and answers, and get a whole batch of arcade-style revision games! [<a style="color:white;text-decoration:underline" href='../arcade/samples_ibww1causes.html'>view example</a>]<br />
+Embed your games in your blog/website/wiki.<br />
+Give students a set amount of time to play the game, then use the leaderboard to get the highest score of each student for your markbook. 
+</p>
+<h3>Title: 
+  <input name="titleBox" type="text" id="titleBox" size="50">
+</h3>
+<h3>Questions/Answers<br /><span style="font-family:Verdana, Geneva, sans-serif">[<span style="text-decoration:underline" onMouseOver="javascript:help()" onMouseOut="javascript:hidesample()">help</span> | <span style="text-decoration:underline" onMouseOver="javascript:sample()" onMouseOut="javascript:hidesample()">example</span>]</span></h3>
+<p>
+  <label for="qbox"></label>
+  <textarea name="qbox" id="qbox" cols="50" rows="20" style="resize:none"></textarea>
+</p>
+<p>
+  <input type="button" onClick="javascript:createIt()" name="subBut" id="subBut" value="Submit" />
+  <input type="button" onClick="javascript:hideEditScreen()" name="cancelBut" id="cancelBut" value="Cancel" />
+  <input type="button" name="upload-btn" id="upload-btn" onclick="javascript:uploadCSV()" value="Upload CSV spreadsheet" />
+</p>
+<form name="reloader" id="reloader" method="POST">
+<input type="hidden" name="pw" id="pw" value="" />
+</form>
+</div>
+<div id="savedBoxWrapper">
+    <div id="savedBox" style="display:none;border:2px #FFCC66 solid; -webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;position:absolute;text-align:center;z-index:50;background:#510f11;color:white;padding:20px;">
+    <span id="savedBoxNAME"></span>
+    <br>
+    <span id="ads3">
+<script async src="../pagead/js/adsbygoogle.js"></script>
+<!-- Arcade Game - Link created -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:234px;height:60px"
+     data-ad-client="ca-pub-8912794096382956"
+     data-ad-slot="3280431310"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+     <br>
+     </span>
+    <span id="savedBoxOK"></span>
+    </div>
+</div><div id="uploaderDiv" style="display:none;z-index:9999">
+    <style>
+		#uploaderDiv{color:black;font-family:Verdana, Geneva, sans-serif;padding-top:50px;}
+        #uploader { display: block; margin: 20px auto; background: #eee; border-radius: 10px; padding: 15px ;width: 400px;}
+        .progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; height: 2px;}
+        .bar { background-color: #B4F5B4; width:0%; height:2px; border-radius: 3px; }
+        .percent { position:absolute; display:inline-block; top:3px; left:48%; }
+        #status{margin-top: 30px;}
+    </style>
+   <form id="uploader" action="../index.html" method="post" enctype="multipart/form-data">
+        <h3>Upload CSV file</h3>
+        <p>You can save your Excel spreadsheet of questions in .csv format and import it  here. Just make sure the first column in each row is the  question, that the second columns is the correct answer, and the rest are possible incorrect answers.</p>
+        <table>
+            <tr><td>File:</td><td><input type="file" name="myfile"></td></tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td><input type="button" name="can" id="can" value="Cancel" onClick="javascript:uploadCSVcanel()" /></td></tr>
+        </table>
+         <div class="progress"> 
+        <div class="bar"></div >
+        <div class="percent">0%</div >        
+         <div id="status"></div>         
+    </div>
+    </form>
+    <!--following not needed *I THINK* in current app as we're using a php include to add this page, and jquery is already installed in it
+    <script src="../ajax/libs/jquery/1-7/jquery.js"></script>-->
+    <script src="../arcade/form.js"></script>
+    <script>
+	function submitit()
+	{
+	fileName=(new Date).getTime()
+	$("#uploader").attr('action', "file.php?fname="+fileName);
+	$("#uploader").submit()
+	}
+        (function() {
+            var bar = $('.bar');
+            var percent = $('.percent');
+            var status = $('#status');
+			$("input[name=myfile]").change(function() {
+					submitit()
+				});
+            $('form').ajaxForm({
+                beforeSend: function() {
+                    status.empty();
+                    var percentVal = '0%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    var percentVal = percentComplete + '%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                success: function() {
+                    var percentVal = '100%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                complete: function(xhr) {
+                    status.html(xhr.responseText);
+					//ACTIONS UPON COMPLETION (customise these)
+					uploadCSVdone(fileName)
+                }
+            });
+        })();
+    </script>
+</div><!--END OF EDITGAME DIV-->
+<div id="wellDoneWrapper"></div>
+<div id="qlistDiv" class="curve" style="display:none;text-align:center;font-family:Verdana, Geneva, sans-serif">
+</div>
+<div id="samplesDiv" class="curve" style="display:none;text-align:center;font-family:Verdana, Geneva, sans-serif">
+<h2>Sample Arcade Games</h2>
+<h3>HUUNDREDS more can be found in the <a href='../_SEARCH/index_template_arcade.html'>dynamic archive</a></h3>
+<p>
+  <a href='../arcade/samples_othergeographyindustry.html'>Geography: Industry and Agriculture (165 questions)</a><br />
+  <a href='../arcade/samples_otherenglishmerchant.html'>English Literature: The Merchant of Venice (105 questions)</a>  <br />
+  <a href='../arcade/samples_otherastronomy.html'>Astronomy (45 questions)</a>  <br />
+  <a href='../arcade/samples_othertheology.html'>Religious Education Trivia Quiz (105 questions)</a>  <br />
+  <a href='../index.html'>Japan (135 questions)</a>  <br />
+  <a href='../index.html'>Geography: Rivers (45 questions)</a>  <br />
+  <a href='../index.html'>Business Studies General Knowledge (45 questions)</a>  <br />
+  <a href='../index.html'>Music: Chords (30 questions)</a>  <br>
+<p><strong>World Wars One and Two</strong><br />
+  <a href='../arcade/samples_ibww1causes.html'>Causes of World War One (60 questions)</a><br />
+  <a href='../index.html'>The Peace Treaties After World War One (90 questions)</a><br />
+  <a href='../index.html'>Life in the Trenches in World War One (45 questions)</a><br />
+<a href='../index.html'>Britain during World War Two (60 questions)</a>
+<p><strong>International Relations between the World Wars</strong><br />
+<a href='../index.html'>International Relations 1919-39 Mega-Challenge (183 questions)</a><br />
+<a href='../index.html'>The Treaty of Versailles (60 questions)</a><br />
+<a href='../index.html'>The 1930s (45 questions)</a><br />
+<a href='../index.html'>1919-1939 (90 questions)</a><br />
+<a href='../index.html'>Wall St, Depression (30 questions)</a><br />
+<a href='../index.html'>The League in the 1920s (45 questions)</a>
+<p><strong>German History</strong><br />
+  <a href='../index.html'>Germany in the era of Bismarck, 1870-1890 (135 questions)</a>  <br />
+  <a href='../index.html'>Why Germany Lost WW1 (30 questions)</a>  <br />
+  <a href='../index.html'>The Weimar Republic 1918-1933 (45 questions)</a>  <br />
+  <a href='../index.html'>Culture in the Weimar Republic, 1918-1933 (30 questions)</a>  <br />
+  <a href='../index.html'>Young People in Nazi Germany (31 questions)</a>  <br />
+  <a href='../index.html'>Nazi Germany 1933-1945 (75 questions)</a><br />
+<a href='../index.html'>Nazi Germany Mega Challenge (243 questions)</a><br />
+<a href='../index.html'>Nazi Economic Policies (30 questions)</a><br />
+<a href='../index.html'>Nazi Policies on Women and the Family (45 questions)</a><br />
+<a href='../index.html'>Hitler's Foreign Policy (46 questions)</a><br />
+<a href='../index.html'>The Nazis and the Jews (30 questions)</a><br />
+<a href='../index.html'>Opposition in Nazi Germany (30 questions)</a><br />
+<a href='../index.html'>The Nazis and Minority Groups (45 questions)</a><br />
+<a href='../index.html'>The Nazis and Religion (30 questions)</a><br />
+<a href='../index.html'>Propaganda in Nazi Germany (30 questions)</a>
+<p><strong>Russian History</strong><br>
+<a href='../index.html'>Tsar Alexander II of Russia 1862-1881 (45 questions)<br />
+</a><a href='../index.html'>Tsar Alexander III of Russia 1881-1894 (30 questions)</a><a href='../index.html'><br />
+</a><a href='../index.html'>Russia under Nicholas II to 1905 (30 questions)</a><a href='../index.html'><br />
+</a><a href='../index.html'>Russia under Nicholas II 1906-1914 (30 questions)</a><a href='../index.html'><br />
+</a><a href='../index.html'>Tsarist Russia Trivia Quiz (60 questions)</a><br />
+<a href='../index.html'>Russia under Lenin 1917-24 (45 questions)</a><br />
+<a href='../index.html'>Internal Problems in the USSR (31 questions)</a><br />
+<a href='../index.html'>External Problems for the USSR (31 questions)</a><br />
+<a href='../index.html'>Gorbachev's USSR (31 questions)</a>
+<p><strong>Spanish History</strong><br>
+<a href='../index.html'>Spain under Ferdinand and Isabella (30 questions)</a><br><a href='../index.html'>Origins of the Cold War to 1949 (60 questions)</a><br><a href='../index.html'>The European Reformation (45 questions)</a>
+<p><strong>Other History Quizzes</strong><br />
+  <a href='../index.html'>What is Chronology? (30 questions)</a><br />
+  <a href='../index.html'>Medicine Through Time (75 questions)</a><br />
+  <a href='../index.html'>History: Islamic Civilisations (60 questions)</a>  <br />
+  <a href='../index.html'>The Renaissance (45 questions)</a>  <br />
+  <a href='../index.html'>Early Modern Europe (105 questions)</a><br />
+  <a href='../index.html'>The Romans (90 questions)</a><br />
+  <a href='../index.html'>1066: The Year of Three Kings (45 questions)</a><br />
+  <a href='../index.html'>The Ottoman Empire in the 16th Century (30 questions)</a><br />
+  <a href='../index.html'>The Henrician Reformation in England, 1530-1547 (45 questions)</a><br />
+  <a href='../index.html'>The Reign of William the Conqueror (45 questions)</a><br />
+  <a href='../index.html'>Henry VIIs Foreign Policy 1485-1509 (30 questions)</a><br />
+  <a href='../index.html'>History: Medieval Realms Trivia Challenge (165 questions)</a><br />
+  <a href='../index.html'>How much do you know about the Tudors? (210 questions)</a><br />
+  <a href='../index.html'>The English Civil War 1642-1649 (150 questions)</a><br />
+  <a href='../index.html'>Wolsey and Henry VIII (60 questions)</a><br />
+  <a href='../index.html'>History: 19th Century Trivia Challenge (60 questions)</a><br />
+  <a href='../index.html'>The Catholic Counter Reformation 1550-1600 (75 questions)</a><br />
+  <a href='../index.html'>Jack the Ripper (45 questions)</a><br />
+  <a href='../index.html'>Modern World History c.1890-1940 (180 questions)</a><br />
+  <a href='../index.html'>The British Suffragette Movement (30 questions)</a><br />
+  <a href='../index.html'>The British Liberal Government, 1906-1914 (75 questions)</a>  <br />
+  <a href='../index.html'>The Rise of Mao (45 questions)</a><br />
+  <a href='../index.html'>The Cold War (255 questions)</a>  <br />
+  <a href='../index.html'>The Korean War (75 questions)</a>  <br />
+<a href='../index.html'></a>  
+  <h2><a href="javascript:hideSamples()">Back</a></h2>
+</div>
+<style>
+#ad
+{
+	position:absolute;
+		top:25px;
+		right:0px;
+}
+</style>
+<div id="ad" style="width:300px;height:600px;color:white;font-size:larger;font-weight:bold;text-align:center">
+<script async src="../pagead/js/adsbygoogle.js"></script>
+<!-- Arcade Creation Page (2017) -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-8912794096382956"
+     data-ad-slot="7974457321"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p align="center" style="background:red;width:300px;font-family:Verdana, Geneva, sans-serif">Don't Like Ads? <a href="http://www.activehistory.co.uk/classtools_premium/index.htm">Go Premium</a>!</p>
+</div>
+<form name="manicForm" id="manicForm" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw1" id="sentPw1" value="" />
+</form>
+<form name="asteroidsForm" id="asteroidsForm" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw2" id="sentPw2" value="" />
+</form>
+<form name="pongForm" id="pongForm" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw3" id="sentPw3" value="" />
+</form>
+<form name="wordshootForm" id="wordshootForm" target="_top" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw4" id="sentPw4" value="" />
+</form>
+<form name="flashcardForm" id="flashcardForm" target="_top" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw5" id="sentPw5" value="" />
+</form>
+<form name="snakeForm" id="snakeForm" target="_top" method="POST" action="../index.html"> 
+<input type="hidden" name="sentPw6" id="sentPw6" value="" />
+</form>
+<!-- START OF EMBED OPTIONS -->
+<script>
+function showEmbedOptions()
+{
+temp=self.location+"";
+if(temp.indexOf("_")==-1)	//homepage.
+	{
+		//Needs to be saved.
+		alert("<b>You need to save a quiz before you can get the embed code.</b>");
+		return;
+	}
+apprise(document.getElementById("shareDivOptions").innerHTML);
+}
+function popup(s)
+{
+$('.appriseOverlay').remove();$('.appriseOuter').remove()
+if(s=="QR")
+	{
+	apprise("<img src='../chart_chs_250x250_cht_qr_chl_/classtools-net/arcade/samples_othergeographyindustry_choe_UTF-8.png' alt='QR' />");
+	}
+if(s=="widget")
+	{
+	str='<b>URL</b>: www.classtools.net/arcade/samples_othergeographyindustry<p>'
+	//str+='<b>Embed Code</b>:<br><textarea rows="10" cols="80"><iframe src="//www.classtools.net/arcade< ? echo($loc); ?>" style="position:relative;top:0;left:0;width:900px;height:700px;overflow:none;border:none"></iframe></textarea></p>'
+	str+='<p><b>Widget Link</b>:<br><textarea rows="10" cols="80"><p align="center"><iframe scrolling="no" src="//www.classtools.net/widg/samples_othergeographyindustry" width="570" height="400" frameborder=0></iframe></p></textarea></p>'
+	apprise(str);
+	}
+}
+</script>
+<div style="display:none" id="shareDivOptions">
+    <ul>
+    <li><a href="javascript:popup('widget')">URL Link / Embed Code</a></li>
+    <li><a href="javascript:popup('QR')">QR Code</a></li>
+    <li><a href="../index.html">Download Web Shortcut</a></li>
+    </ul>
+</div>
+<div id="preloadQR" style="display:none"><img src='../chart_chs_250x250_cht_qr_chl_/classtools-net/arcade/samples_othergeographyindustry_choe_UTF-8.png' alt='QR' /></div>
+<!-- END OF EMBED OPTIONS -->
+<div id="formBit"></div>
+<style>
+#ad
+{
+-webkit-border-radius: 15px;-moz-border-radius: 15px;border-radius: 15px;
+/*https://www.gradient-animator.com*/
+background: linear-gradient(270deg, #F00, #3ea3f5, #ba70ec);
+background-size: 600% 600%;
+-webkit-animation: AnimationName 10s ease infinite;
+-moz-animation: AnimationName 10s ease infinite;
+animation: AnimationName 10s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+</style><script>
+function bloc(){
+	var adBlockEnabled = false;
+	var testAd = document.createElement('div');
+	testAd.innerHTML = '&nbsp;';
+	testAd.className = 'adsbox';
+	document.body.appendChild(testAd);
+	window.setTimeout(function() {
+			  if (testAd.offsetHeight === 0) {
+				adBlockEnabled = true;
+			  }
+			  testAd.remove();
+			  console.log('AdBlock Enabled? ', adBlockEnabled)
+			  console.log(createdByPremiumUser+" "+premiumUser)
+			  if(adBlockEnabled==true)
+				{
+				if(premiumUser==false && createdByPremiumUser==false)
+					{
+					console.log("WARNING");
+					adblockerActive()
+					setTimeout("regularWarning()",5000);setInterval("regularWarning()",300000)};
+				}
+			}, 100);	
+}
+bloc()
+function regularWarning()
+{
+str="IMPORTANT MESSAGE\nWe notice you're using an adblocker.\nclasstools.net is FREE but relies on advertising for its survival.\n*Please support us by EITHER whitelisting classtools.net OR taking out a classtools.net premium subscription to remove adverts*.\nThank you!"
+alert(str)
+//once per five minutes
+}
+function adblockerActive(){}
+</script><script>
+function adblockerActive()
+{
+$("#ad").css("background-color","red")
+$("#ad").css("background-color","red")
+$("#ad").html('<span style="background:#0F0;margin-top:100px;-webkit-border-radius: 15px;-moz-border-radius: 15px;border-radius: 15px;padding:5px;text-align:center"><b><span style="color:black">NEW BOOK</span>: <a href="http://myBook.to/historyteachingtoolbox2">Buy Now!</a></b></span><br>');
+$("#ad").append('<a href="http://myBook.to/historyteachingtoolbox2"><img width="175px" src="https://www.activehistory.co.uk/book/images/cover3d-smallestvol2.gif" /></a>')
+//$("#ad").append("<span style='margin:10px'><h2>IMPORTANT MESSAGE</h2>")
+$("#ad").append("<p>You're using an adblocker.<p>classtools.net is FREE but relies on advertising to survive.<p>Please support us by EITHER whitelisting classtools.net OR taking out a <a href='https://www.activehistory.co.uk/classtools_premium/index.htm'>classtools.net premium subscription</a> to remove adverts.<p>Thank you!")
+//$("#ad").append("<a href='http://www.classtools.net' target='_blank'><img width='250px' src='/classtools_premium/logoTrans.gif' /></span>")
+}
+</script>
+</body>
+</html>
