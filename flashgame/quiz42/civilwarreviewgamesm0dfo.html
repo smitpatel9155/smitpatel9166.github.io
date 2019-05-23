@@ -1,0 +1,987 @@
+
+<!DOCTYPE html> 
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
+<title>Arcade Game Generator from classtools.net </title>
+<meta property="og:image" content="../../_mobileQuiz/craftyslide/images/manic.jpg" />
+<link href="../../style_index.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../_mobileQuiz/colorbox/colorbox.css" />
+<script type="text/javascript" src="../../flashtest/swfobject.js"></script>
+<script type="text/javascript">
+var playerVersion = swfobject.getFlashPlayerVersion(); // returns a JavaScript object
+var output = playerVersion.major
+flashEnabled=1;
+if(output=="0"){flashEnabled=0};
+</script>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+select {
+		border: 0 !important;  /*Removes border*/
+		-webkit-appearance: none;  /*Removes default chrome and safari style*/
+		-moz-appearance: none; /* Removes Default Firefox style*/
+        appearance:none;
+		background: #0088cc url(../../flashgame/quiz42/arrow.png) no-repeat 100% center;
+		width: 200px; /*Width of select dropdown to give space for arrow image*/
+		text-indent: 0.01px; /* Removes default arrow from firefox*/
+		text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
+		color: #FFF;
+		border-radius: 15px;
+		padding:5px 0px 5px 10px;
+		box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+		font-size:larger;
+	}
+input[type=TEXT]
+{
+font-size:large;
+background:yellow;	
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+	transition: box-shadow 0.3s, border 0.3s;
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+textarea
+{
+background:yellow;	
+}
+h2
+{margin-top:0px}
+td {
+	vertical-align: top;
+	text-align: left;
+}
+html
+{
+padding:20px;		
+}
+.card
+{
+min-height:150px;
+border-radius: 30px; 
+-moz-border-radius: 30px; 
+-webkit-border-radius: 30px; 
+border: 5px solid #F50000;	
+background-color:white;
+padding:15px;
+text-align:center;
+font-size:large;
+}
+</style>
+<script src="../../ajax/libs/jquery/1-7-1/jquery.min.js"></script>
+<script src="../../_mobileQuiz/colorbox/jquery.colorbox.js"></script>
+<link rel="stylesheet" href="../../_mobileQuiz/craftyslide/css/craftyslide.css" />
+<script>
+cardcount=0
+function nextCard()
+{
+$('#card1').css({"background-color":"white"});
+//$("#card1").hide();
+document.getElementById("card1").innerHTML=q[cardcount][0]+"<br><a href='javascript:turnCard()'>Click for answer</a>"
+$("#card1").show('fast');
+}
+function turnCard()
+{
+$('#card1').css({"background-color":"yellow"});
+//$("#card1").hide();
+document.getElementById("card1").innerHTML=q[cardcount][1]+"<br><a href='javascript:nextCard()'>Click for next</a>"
+cardcount++;if(cardcount==q.length){cardcount=0}
+$("#card1").show('fast');
+}
+function removAds()
+{
+setTimeout('$("#ads").html("");$("#ads2").html("");',1000)
+}
+theFolder="quiz42"
+theFile="civilwarreviewgamesm0dfo"
+function showEmbedOptions()
+{
+document.getElementById("shareDiv").style.display="block"
+}
+function showShareOptions()
+{
+a=document.getElementById("shareDivOptions")
+if(a.style.display=="block"){a.style.display="none";window.scrollTo(0,0);}//toggle
+else{a.style.display="block";window.scrollTo(0,document.body.scrollHeight);}
+widgSize('large')
+}
+//Check that the created quiz has a password associated with it.
+function PwCheck()
+{
+if(PW!="")
+	{
+	//PW already exists. Proceed.
+	createCode()	
+	}
+else
+	{
+	//Display pw submission box.	
+	document.getElementById("createCodeBtnDiv").style.display="none";
+	document.getElementById("pwBtnDiv").style.display="block";
+	}
+}
+//Create a password for a newly created quiz.
+function createPw()
+{
+PW=document.getElementById("pwText").value;
+if(PW==""){$.colorbox({html:"<h1>Please provide a password</h1>"});return}
+$.ajax({ url: '//www.classtools.net/_mobileQuiz/pw_quiz_encode.php',
+			 data: 	{
+					actualPW:PW
+			 		},
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				PW=data.theResult
+				createCode()	
+                }
+			});
+}
+function savethefave()
+{
+saveFave(self.location+"",	document.getElementById("titleField").value)//function called from _login.inc.php.
+}
+//Generate the quiz code.
+function createCode()
+{
+//var a = document.getElementById("GPreselected");
+//GP=a.options[a.selectedIndex].value;
+newCode=document.getElementById("quesBox").value//+GP
+nochanges=0
+if(newCode==oldCode)
+	{
+	nochanges=1
+	}
+	oldCode=newCode//ready to pick up changes next time round.
+	//alert("Changes detected!")
+	if(document.getElementById("titleField").value=="")
+		{$.colorbox({html:"<h1>Please provide a title for your quiz</h1>"});return}
+	TI=document.getElementById("titleField").value
+	//Check for 10 questions and a title. Break routine if not provided after giving an error message.
+		flag=0
+		temp=document.getElementById("quesBox").value;
+		temp=temp.replace(/\n\r?/g, '<br />');//replace newlines with standards.
+		theInfo=temp.split("<br />");
+		if(theInfo.length<10){flag=1}
+		temp2=temp.split("*");
+		if(temp2.length<10){flag=1}
+		if(flag==1){alert("You must submit at least 10 questions and answers");return}
+	if(nochanges==1)
+	{
+	alert("No changes detected");
+	return
+	}
+	//Detect if a old quiz (i.e. "theFolder" is not "")
+    //If it is, If not new, keep old URL:
+	newQuiz=0
+		if(theFolder=="")
+			{
+			newQuiz=1
+			fol=10+(Math.round(Math.random()*89))//new batch of folders for newly created quizzes. To take pressure off existing.
+			theFolder="quiz_"+fol
+			theFile=randomFileName()+".htm"
+			temp=TI.replace(/\s/g,'_');
+			temp=temp.replace(/[^a-zA-Z 0-9_]+/g,'');
+			theFile=temp+"_"+theFile
+			}
+//Now we need to: encode the PW if necessary; generate the code.
+str=""
+count=0
+for(n=0;n<theInfo.length;n++)
+	{
+	if(theInfo[n].indexOf("*")!=-1)
+		{
+		temp=theInfo[n].split("*");
+			{
+			if(temp[0].length!=0 && temp[1].length!=0)
+				{
+				str+="X"+temp[0]+"***"
+				str+="X"+temp[1]+"***"
+				count++
+				}
+			}
+		}
+	}
+if(count<10){$.colorbox({html:"<h1>You must submit at least 10 questions and answers</h1>"});return}
+str+="PW:"+PW+"***"
+//var a = document.getElementById("GPreselected");
+//GP=a.options[a.selectedIndex].value;
+GP=0
+str+="GP:"+GP+"***" //change later!!!
+str+="TI:"+TI+"***"
+str+="premiumUser="+premiumUserName+"***";
+str2=encodeURI(str);
+str2=urlcode2(str2);
+//alert(urlencode(str)) = OLD WAY OF DOING IT HOPEFULLY NOW SOLVED!
+str="<"+"?php include('widget_header.htm') ?>"+str2+"quiz<"
+str+="?php include('widget_footer.htm') ?>"
+//NEXT: Write to the server.
+saveFile()
+}
+function saveFile()
+{
+$.ajax({ url: '//www.classtools.net/_mobileQuiz/save.php',
+			 data: 	{
+					str:str,
+					theFile:theFile,
+					theFolder:theFolder
+			 		},
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				if(newQuiz==1)
+					{
+					alert("Your quiz has been saved.\nIt will now be reloaded at its new address.\nPlease make a note of this unique URL by copying it from the address bar!");
+					self.location="//www.classtools.net/mob/"+theFolder+"/"+theFile;	
+					}
+				else
+					{
+					hidequestions();
+					showEmbedOptions()
+					return
+					}
+                }
+			});
+}
+symbols=new Array()
+n=0
+symbols[n++]=new Array('@','%40');
+symbols[n++]=new Array('+','%2B');
+symbols[n++]=new Array('/','%2F');
+symbols[n++]=new Array('*','%2A');
+symbols[n++]=new Array(':','%3A');
+symbols[n++]=new Array('!','%21');
+symbols[n++]=new Array('=','%3D');
+function urlcode2(s){
+   for(n=0;n<symbols.length;n++)
+   	{
+		s=s.split(symbols[n][0]);
+		s=s.join(symbols[n][1]);
+	}
+   return s
+}
+function urldecode2(s){
+   for(n=0;n<symbols.length;n++)
+   	{
+		s=s.split(symbols[n][1]);
+		s=s.join(symbols[n][0]);
+	}
+   return s
+}
+function randomFileName()
+{
+  chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  pass = "";
+  for(x=0;x<5;x++)
+  {
+    i = Math.floor(Math.random()*chars.length);
+    pass += chars.charAt(i);
+  }
+  return pass;
+}
+function popup(s)
+{
+if(s=="QR")
+	{
+	$.colorbox({html:"<img src='../../chart_chs_500x500_cht_qr_chl_/classtools-net/mob/quiz42/civilwarreviewgamesm0dfo_choe_UTF-8.png'></img>"});
+	}
+}
+PW="";TI="";oldCode="NOCODE";
+function widgSize(theSize)
+{
+str=document.getElementById("widgetCode").innerHTML;
+if(theSize=="large")
+	{wid1=710;hei1=530;wid2=718;hei2=550;str=str.replace('id="radio1" ','id="radio1" checked="CHECKED"'); }
+if(theSize=="medium")
+	{wid1=400;hei1=300;wid2=408;hei2=320;str=str.replace('id="radio2" ','id="radio2" checked="CHECKED"'); }
+if(theSize=="small")
+	{wid1=100;hei1=75;wid2=108;hei2=95;str=str.replace('id="radio3" ','id="radio3" checked="CHECKED"');}
+str=str.replace("wid1",wid1);
+str=str.replace("wid2",wid2);
+str=str.replace("hei1",hei1);
+str=str.replace("hei2",hei2);
+//$.colorbox({html:str});
+$("#embedC").html(str);
+}
+ims="wordshoot*manic*pairs*cannonball*pong*pac*asteroids";
+desc=new Array()
+desc["wordshoot"]="Wordshoot: Great using a Wii remote and an interactive whiteboard!"
+desc["manic"]="Manic Miner: A platform game on 20 levels, complete with leaderboard/markbook"
+desc["pairs"]="Matching Pairs: Students match the question with the answer as quickly as possible against the clock"
+desc["cannonball"]="Cannonball: Students fire their cannonballs at the correct answers"
+desc["pong"]="Pong: A one or two-player game, complete with leaderboard/markbook"
+desc["pac"]="PacMan: Based on the classic arcade game - gain extra lives by successfully answering questions"
+desc["asteroids"]="Asteroids - shoot the correct answer to get onto the leaderboard!"
+ims=ims.split("*")
+imN=0
+function changeIm()
+{
+imN++;if(imN==ims.length){imN=0}
+$("#sideImage").attr("src","//www.classtools.net/_mobileQuiz/craftyslide/images/"+ims[imN]+".jpg");
+$("#descrip").html(desc[ims[imN]])
+}
+function changeImHover(id)
+{
+clearInterval(timer)
+$("#sideImage").attr("src","//www.classtools.net/_mobileQuiz/craftyslide/images/"+id+".jpg");
+$("#descrip").html(desc[id])
+}
+function init()
+{
+timer=setInterval("changeIm()",3000)
+$("#loader").hide()
+$(".inline").colorbox({inline:true, width:"50%"});
+sampleQs=document.getElementById("quesBox").value
+document.getElementById("quesBox").value="";
+editingInPlace=0;//no password successfully submitted yet.
+if(theFolder=="")//it's a new quiz, so open the text box
+	{
+	showquestions()	
+	}
+else
+	{
+	loadOldQuestions()
+	//nextCard()//ready for cards game HTML5 if needed.
+	showEmbedOptions()
+	if(flashEnabled==1)
+		{document.getElementById("mobileGames").style.display="none";document.getElementById("flashGames").style.display="block";}
+	else
+		{document.getElementById("mobileGames").style.display="block";document.getElementById("flashGames").style.display="none";}
+	}
+if(PW!="")
+	{
+	document.getElementById("editMenu").style.display="block";
+	document.getElementById("createCodeBtnDiv").style.display="block";
+	  for(n=0;n<q.length;n++)
+			{
+			document.getElementById("quesBox").value+=q[n][0]+"*"+q[n][1]+"\n";
+			}
+		//var a = document.getElementById("GPreselected");
+		//GP=a.options[a.selectedIndex].value;
+		GP=0
+		oldCode=document.getElementById("quesBox").value+GP
+	}
+}
+function loadOldQuestions()
+	{
+	//theData=("")
+	theData=decodeURIComponent("")
+	theData=urldecode2(theData);
+	theData=theData.split("***X");
+	q=new Array()
+	count=0
+	for(n=0;n<theData.length-1;n++)
+		{
+		q[count]=new Array(theData[n],theData[n+1])
+		count++
+		n++
+		}
+	numQs=count
+	temp=q[q.length-1][1].split("***PW:");
+	q[q.length-1][1]=temp[0];
+	temp=temp[1]
+	temp=temp.replace("GP:","");
+	temp=temp.replace("TI:","");
+	temp=temp.split("***");
+	PW=temp[0]//Password
+	//console.log(PW);
+	GP=temp[1]//GamePreselected - should be nothing
+	/*var dropdownlistbox = document.getElementById("GPreselected")
+	for(var x=0;x < dropdownlistbox.length -1 ; x++)
+		{
+		   if(GP == dropdownlistbox.options[x].text)
+			  dropdownlistbox.selectedIndex = x;
+		}
+	*/
+	TI=temp[2]//Title of the Game
+	document.getElementById("gameTitle").innerHTML=TI+" ("+numQs+" questions)"
+	document.getElementById("titleField").value=TI
+	}
+function chooseGame(nm)
+{
+	if(nm=="WordshootMobile")
+	{
+		self.location="//www.classtools.net/ws-mob/quiz42/civilwarreviewgamesm0dfo";
+	}
+	else if(nm=="pong" || nm=="asteroids")
+	{
+		self.location="//www.classtools.net/"+nm+"/quiz42-civilwarreviewgamesm0dfo";
+	}
+	else if(nm=="pac")
+	{
+		self.location="//www.classtools.net/pac/quiz42_civilwarreviewgamesm0dfo";
+	}
+	else{
+	document.getElementById("GP").value=nm;
+	document.testing.submit()
+	//self.location="http://www.classtools.net/widgets/quiz42/civilwarreviewgamesm0dfo?GP="+nm
+	}
+}
+function showPWbox()
+{
+if(editingInPlace==1)//password has already been accepted so no need to input it again
+	{
+	showquestions();return
+	}
+document.getElementById("editMenu").style.display="none";
+document.getElementById("submitPW").style.display="block";	
+document.getElementById("textfield").select();
+window.scrollTo(0,document.body.scrollHeight);
+}
+function hidePWbox()//show editing block
+{
+document.getElementById("editMenu").style.display="block";
+document.getElementById("submitPW").style.display="none";
+window.scrollTo(0,0);	
+}
+//Check the password for editing this quiz.
+function checkSubmit(e)
+{
+   if(e && e.keyCode == 13)
+   	{checkPW()}
+}
+function checkPW()
+	{
+	theSubmission=document.getElementById("textfield").value;
+	$.ajax({ url: '//www.classtools.net/_mobileQuiz/pw_quiz.php',
+			 data: {
+					actualPW:PW,
+					submittedPw:theSubmission
+			 		},
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				//if resave, just an $.msgbox is ok
+				if(data.theResult=="yes")
+						{
+						editingInPlace=1;//alert("Password accepted!");
+						$.colorbox({html:"<h1>Password accepted!</h1>"})
+						showquestions()
+						}
+				else
+						{
+						$.colorbox({html:"<h1>Incorrect Password.</h1>"});document.getElementById("textfield").select();
+						}
+                  }
+			});
+	}
+function showquestions()
+{
+document.getElementById("gameSelector").style.display="none";
+document.getElementById("gameEditor").style.display="block";	
+}
+function hidequestions()
+{
+document.getElementById("gameSelector").style.display="block";
+document.getElementById("gameEditor").style.display="none";	
+hidePWbox()
+}
+function showSampleLayout()
+{
+savedQs=document.getElementById("quesBox").value
+document.getElementById("quesBox").value=sampleQs	
+}
+function hideSampleLayout()
+{
+document.getElementById("quesBox").value=savedQs	
+}
+</script>
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+-->
+.bubble
+{
+width:1020px;	
+margin:auto;
+}
+.title
+{
+font-size:x-large;
+font-family: 'Press Start 2P', cursive;
+}
+.btn1 {  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+</style>
+</head> 
+<body onload="init()"> 
+<style>
+html,body
+{
+margin: 0px;
+}
+.small
+{
+font-size:x-small;	
+}
+#loginBox
+{
+position:absolute;
+z-index:10;
+top:0px;
+left:10px;	
+color:black;
+}
+#login a:link {color:white;text-decoration:none; font-size:small;}
+#login a:active{color:white;text-decoration:none}
+#login a:visited{color:white;text-decoration:none}
+#login
+{
+font-family:Verdana, Geneva, sans-serif;
+z-index:9999;
+font-size:small;
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+text-align:left;
+margin:0px;
+background-color:#44619d;
+text-decoration:none;
+}
+</style>
+<script>
+fbtemplate=0;
+premiumUser=0;
+premiumUserName="";
+premiumUserPW="";
+function showFields()
+	{
+	t=$("#login").css("top");
+	z=$("#loginBox").css("top")
+	console.log("TOP POS = "+t+" "+z);
+	if(t=="auto"){console.log(1);$("#loginBox").css("top","-75px");}
+	z=t=$("#loginBox").css("top")
+	console.log("TOP POS = "+t+" "+z);
+	document.getElementById("login").style.display="block";
+	document.getElementById("loginFields").style.display="block"
+	}
+function hideFields()
+{
+	document.getElementById("loginFields").style.display="none"
+}
+function showLoginDetails()
+{
+document.getElementById("loginBtn").style.display="none"
+document.getElementById("loggedIn").innerHTML="<a href='#'>Logged in as "+	premiumUserName +"</a> | <a href='javascript:logout()'>Logout</a> | <a target='_blank' href='../../index.html'>Home</a> | <a target='_blank' href='../../fform.html'>Contact</a> |  <a target='_blank' href='../../_SEARCH/index.html'>PowerSearch</a> | ";
+if(typeof savethefave == 'function') 
+	{document.getElementById("loggedIn").innerHTML+="<span id='favBar'><a href='javascript:savethefave()'>Add to Favourites</a> | </span>";}
+//IMPORTANT NOTE: "savethefave" belongs in the PARENT page, so can be customised in terms of specifying title / location of widget. This function in turn calls savefave() on THIS page.
+if(typeof removAds == 'function') {removAds()}
+document.getElementById("loggedIn").innerHTML+="<a href='javascript:viewfavs()'>View Favourites</a> | ";
+document.getElementById("loggedIn").innerHTML+='<a target="_blank" href="//www.classtools.net/templates/_ac.php">Account Status</a> | '
+document.getElementById("loggedIn").style.display="block"
+if(fbtemplate==1)
+	{
+	$('body').css({"padding":"20px 0 0 0"});
+	$('fixeddiv').css({"top":"5px"});
+	$("#loginDiv").hide();
+	$("#login").show();
+	}
+}
+function logout()
+{
+$.ajax({ url: '//www.classtools.net/templates/_logout.php',
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				document.getElementById("loginBtn").style.display="block"
+				document.getElementById("loggedIn").style.display="none"
+				premiumUser=0;
+                }
+			});	
+}
+function viewfavs()
+{self.location="//www.classtools.net/classtools_premium/user_templates.php?"+premiumUserName}
+function saveFave(theLoc,theTitle)
+{
+	temp=self.location+""
+	$.ajax({ url: '//www.classtools.net/classtools_premium/add_template_to_user_profile.php',
+			 data: {
+					widgetLoc:theLoc,
+					premTitle:theTitle
+			 		},
+			dataType: 'json',
+			type: 'post',
+			success: function(data) 
+				{
+				alert(data.theResult)
+                }
+			});
+}
+function doLoginNow()
+{
+subUsr=document.getElementById("username").value;
+subPw=document.getElementById("thepw").value;
+doLogin(subUsr,subPw)
+}
+function doLogin(subUsr,subPw)//can be called from above, or from the icons.swf 
+{
+	$.ajax({ url: '//www.classtools.net/templates/_login_manual.php',
+			 data: {
+					submUsr:subUsr,
+					submPw:subPw
+			 		},
+			dataType: 'json',
+			type: 'post',
+			async:false,//wait for response before doing something
+			success: function(data) 
+				{
+				hideFields();
+				if(data.success==1)
+					{
+					premiumUser=1
+					premiumUserName=subUsr;
+					premiumUserPW=subPw;
+					showLoginDetails()
+					}
+				else
+					{
+					alert(data.theResult)
+					}
+                }
+			});
+}
+</script>
+<div id="login">
+<table><tr><td>
+    <div id="loginBtn"><a href="../../index.html" target="_blank">classtools.net Home</a> | <a href="javascript:showFields()">Premium Login</a> | <a target='_blank' href="https://www.facebook.com/Classtools">Facebook Fanpage</a>
+     | <a target='_blank' href="../../_SEARCH/index.html">PowerSearch</a>
+      | <a target='_blank' href="../../fform.html">Contact</a>
+    </div>
+    <div id="loggedIn">
+    </div>
+	<div id="loginBox">
+        <div id="loginFields" style="display:none">
+          <table width="10%" border="0" bgcolor="yellow" cellpadding="3px">
+            <tr>
+              <td>Username</td>
+              <td>
+                <input type="text" name="username" id="username"></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td><input type="password" name="thepw" id="thepw"></td>
+              <td><input type="button" name="button" id="button" value="Submit" onClick="doLoginNow()"></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small"><a target='_blank' href='//www.activehistory.co.uk/classtools_premium/index.htm'><span style="color:black">Not a member? Join Now!</span></a></td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+        </div>
+   </div>
+</td></tr></table>
+</div>
+<script>
+if(premiumUser==1)
+	{
+	showLoginDetails();
+	hideFields();
+	}
+fbtemplate=0;
+wheel=0;
+if(wheel==1)
+	{
+	//$("#loginDiv").hide();
+	$('#login').css({"padding":"0px","margin":"0px","top":"auto","bottom":"0px","background-color":"black"});
+	$('#loginBox').css({"top":"auto","bottom":"40px"});
+	$("#login").show();
+	}
+    if(typeof jQuery == 'undefined'){
+        var oScriptElem = document.createElement("script");
+        oScriptElem.type = "text/javascript";
+        oScriptElem.src = "../../templates/jquery.js";
+        document.head.insertBefore(oScriptElem, document.head.getElementsByTagName("script")[0])
+    }
+</script>
+<form name="testing" method="POST" action="../../index.html">
+<input type="hidden" value="" id="GP" name="GP">
+</form>
+<script src="../../_mobileQuiz/craftyslide/js/craftyslide.min.js"></script>
+<script>
+				  		(function($){
+									$.fn.shuffle = function() {
+										var allElems = this.get(),
+											getRandom = function(max) {
+												return Math.floor(Math.random() * max);
+											},
+											shuffled = $.map(allElems, function(){
+												var random = getRandom(allElems.length),
+													randEl = $(allElems[random]).clone(true)[0];
+												allElems.splice(random, 1);
+												return randEl;
+										   });
+										this.each(function(i){
+											$(this).replaceWith($(shuffled[i]));
+										});
+										return $(shuffled);
+									};
+								})(jQuery);
+		</script>
+<div id="content">
+<div class="bubble">
+<table width="99%" border="0" cellpadding="1">
+    <tr>
+      <td><a href="../../index.html" target="_blank"><img align="left" src="../../classtools_premium/logoTrans.gif" width="422" height="95" border="0"></a></td>
+      <td><p class="title" id="gameTitle" style="text-align:center">Arcade Game Generator!
+      </p></td>
+    </tr>
+</table>
+<div id="loader" style="text-align:center"><img align="center" src="../../_mobileQuiz/loading.gif" width="400" height="300"></div>
+<div id="gameSelector">
+<div id="flashGames" style="display:none">
+<h3 style="color:red">Please note: All Flash games will be retired in Summer 2017 in favour of <a href="../../index.html">HTML5 versions of the same games</a>.
+  <table width="100%" border="0" cellpadding="1">
+    <tr>
+      <td width="50%">
+         <h1><a href="javascript:chooseGame('pac');" onMouseOver="changeImHover('pac')">PacMan</a><font color='red'> [NEW!!]</font></h1>
+      <h1><a href="javascript:chooseGame('Manic%20Miner');" onMouseOver="changeImHover('manic')">Manic Miner</a> </h1>
+      <h1><a href="javascript:chooseGame('Wordshoot');" onMouseOver="changeImHover('wordshoot')">Wordshoot</a> </h1>
+      	<h1><a href="javascript:chooseGame('pong');" onMouseOver="changeImHover('pong')">Pong!</a></h1>
+         <h1><a href="javascript:chooseGame('asteroids');" onMouseOver="changeImHover('asteroids')">Asteroids</a></h1>
+           <h1><a href="javascript:chooseGame('CannonBall%20Fun');" onMouseOver="changeImHover('cannonball')">Cannonball</a></h1>
+           <h1><a href="javascript:chooseGame('Matching%20Pairs');" onMouseOver="changeImHover('pairs')">Matching Pairs</a>          </h1>
+          <h1><a href="javascript:chooseGame('Flashcards');">Flashcards</a></h1>
+      </td>
+      <td width="50%" id="sideBar">
+      <p>&nbsp;</p>
+      <img id="sideImage" align="right" src="../../_mobileQuiz/craftyslide/images/wordshoot.jpg" width="500" height="228">
+      <h3 id="descrip" align="center"></h3>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="mobileGames" style="display:none">
+<h2 align="center">Flash appears to be disabled on your device. <a href="../../index.html">Click here for HTML5 versions of the games</a>.</h2>
+<p align="center">
+  <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="https://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="225" height="150" id="playerProductInstall" align="middle">
+         <param name="allowScriptAccess" value="sameDomain" />
+         <param name="movie" value="../playerProductInstall.swf"/>
+         <param name="quality" value="high" />
+         <param name="bgcolor" value="#FFFFFF" />
+         <embed src="../playerProductInstall.swf" quality="high" bgcolor="#FFFFFF" width="225" height="150" name="playerProductInstall" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="https://www.macromedia.com/go/getflashplayer" />           
+  </object>
+</p>
+<!--
+<ul>
+<li><a href="#page2">Flashcards!</a></li>
+<li><a href="javascript:chooseGame('WordshootMobile');">Wordshoot</a></li>
+<li><a href="javascript:chooseGame('pong');">PONG!</a> </li>
+<li><a href="javascript:chooseGame('asteroids');">Asteroids</a><font color='red'>[NEW!!]</font></li>
+</ul>
+-->
+</div>
+<div id="shareDiv" style="display:none" align="center">
+<h2>
+<span id="editMenu"><span style="background-color:yellow"><a href="../../index.html">Create a new Quiz</a></span><!-- | <a href="javascript:showPWbox()">Edit this Quiz</a>--> | <a href="javascript:showShareOptions()">Share this Quiz</a> |  <a target="_top" href="../../index.html">Download Web Shortcut</a></span>
+</h2>
+<div style="display:none" id="submitPW" onKeyPress="return checkSubmit(event)">
+  <h2>Please submit the password to edit this quiz.</h2>
+  <input type="text" name="textfield" id="textfield">
+  <input type="button" class="btn" name="button" id="button" class="thebut" value="Submit" onClick="javascript:checkPW()">
+  <input type="button" class="btn" name="button2" id="button2" class="thebut" value="Cancel" onClick="javascript:hidePWbox()">
+</div>
+<p><span id="ads2">
+    <script async src="../../pagead/js/adsbygoogle.js"></script>
+<!-- Arcade Game Generator -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-8912794096382956"
+     data-ad-slot="6664963328"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </span>&nbsp;</p>
+</div>
+<div style="display:none;text-align:center" id="shareDivOptions">
+    <p id="embedC"></p>
+	<img src='../../chart_chs_250x250_cht_qr_chl_/classtools-net/mob/quiz42/civilwarreviewgamesm0dfo_choe_UTF-8.png'></img>    
+</div>
+</div>
+<div style="display:none" id="gameEditor">
+<table width="100%" border="0" cellpadding="1">
+  <tr>
+  <style>
+  .texty
+  {font-size:large;font-family:Verdana, Geneva, sans-serif;}
+  </style>
+    <td align="center"><ul style="font-size:large">
+      <li>Input <strong>just one</strong> set of questions and answers, and get a whole batch of arcade-style revision games! [<a href="../../index.html" target="_blank">view example</a>]</li>
+      <li>Embed your games in your blog/website/wiki.</li>
+      <li>Give students a set amount of time to play the game, then use the <strong>leaderboard</strong> to get the highest score of each student for your markbook. <br>
+      </li>
+    </ul></td>
+    <td align="center">
+    <div id="slideshow">
+                    <ul id="pics">
+                    <li><img src="../../_mobileQuiz/craftyslide/images/asteroids.jpg" alt="" title="Asteroids - shoot the correct answer to get onto the leaderboard!" />
+                      </li>
+                      <li><img src="../../_mobileQuiz/craftyslide/images/pac.jpg" alt="" title="PacMan - gain extra lives by answering the questions correctly" />
+                      </li>
+                      <li><img src="../../_mobileQuiz/craftyslide/images/manic.jpg" alt="" title="Manic Miner - a classic platform game turned into an educational quiz" />
+                      </li>
+                      <li><img src="../../_mobileQuiz/craftyslide/images/pong.jpg" alt="" title="Pong - with both a one-player and a two-player option!" />
+                      </li>
+                      <li><img src="../../_mobileQuiz/craftyslide/images/wordshoot.jpg" alt="" title="Wordshoot - great fun with a Wii remote!" />
+                      </li>
+                      <li><img src="../../_mobileQuiz/craftyslide/images/cannonball.jpg" alt="" title="Cannonball Fun - land your cannonball on the correct answer!" />
+                      </li>
+                      <li>
+                        <img src="../../_mobileQuiz/craftyslide/images/pairs.jpg" alt="" title="Matching Pairs - race against the clock!" />
+                      </li>                
+                    </ul>
+                  </div>   
+                 <script>
+				 $('ul#pics li').shuffle();
+                    $("#slideshow").craftyslide({
+					  'width': 540,
+					  'height': 200,
+					  'pagination': false,
+					  'fadetime': 500,
+					  'delay': 6500
+					});
+				 </script>
+    </td>
+    </tr>
+</table>
+<table width="99%" border="0" cellpadding="1" style="text-align:left">
+  <tr>
+    <td><h2><strong>STEP 1: QUIZ TITLE</strong></h2></td>
+    <td><input name="titleField" type="text" id="titleField" style="width:97%;align:center"></td>
+  </tr>
+  <tr>
+    <td><h2><strong>STEP 2: QUESTIONS*ANSWERS </strong></h2>
+      <ul>
+        <li>Input your questions and answers in the box  (or paste from a word processor).</li>
+        <li>Separate each question from its answer with an asterisk: <strong>question*answer</strong></li>
+        <li>Start each question on a fresh line.</li>
+        <li>You can see a <a href="#" onMouseOver="showSampleLayout()" onMouseOut="hideSampleLayout()"> sample layout</a> here.</li>
+        <li>You can   view some <a href="../../index.html" target="_blank">sample quizzes</a> here. </li>
+      </ul></td>
+    <td><textarea name="quesBox" cols="100" rows="15" id="quesBox">What is two plus two?*Four
+What is the capital city of England?*London
+Who painted the Mona Lisa?*Da Vinci
+Who sang "Jailhouse Rock"?*Elvis Presley
+When was the Battle of Hastings?*1066
+When did World War Two end?*1945
+Where was Jonh Lennon killed?*New York
+Where are the pyramids?*Egypt
+What is the best website in the world?*classtools.net
+Who is the most modest web designer in the world?*Russel Tarr
+[etc!]</textarea></td>
+  </tr>
+  <!--
+  <tr>
+    <td>If you would like to direct players to a particular game, specify it here: </td>
+    <td><select name="GPreselected" id="GPreselected" data-inline="true">
+      <option value="0">None: Free choice</option>
+      <option value="Manic Miner">Manic Miner</option>
+      <option value="Wordshoot">Wordshoot</option>
+      <option value="Matching Pairs">Matching Pairs</option>
+      <option value="CannonBall Fun">CannonBall Fun</option>
+      <option value="Flashcards">Flashcards</option>
+    </select></td>
+  </tr>
+  -->
+  <tr id="createCodeBtnDiv">
+    <td><span style="text-align:center">
+      <input style="display:block;margin-left: auto;margin-right: auto" class="btn1"  type="button" name="button3" id="button3" value="Create my games!" data-inline="true" onClick="javascript:PwCheck()">
+    </span></td>
+    <td align="center">
+    <span id="ads">
+    <script async src="../../pagead/js/adsbygoogle.js"></script>
+<!-- Arcade Game Generator -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-8912794096382956"
+     data-ad-slot="6664963328"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </span>
+    &nbsp;</td>
+  </tr>
+</table>
+    <div id="pwBtnDiv" style="display:none">Please provide a PASSWORD so you can edit thie quiz later if you wish:
+      <input type="text" name="pwText" id="pwText" style="width:25%"><input type="button" class="btn" name="pwBtn" data-inline="true" id="pwBtn" value="OK" onClick="javascript:createPw()">
+    </div>
+</div>
+</div>
+<!-- This contains the hidden content for inline calls -->
+		<div style='display:none'>
+			<div id='inline_content' style='padding:10px; background:#fff;'>
+			<img src='../../chart_chs_500x500_cht_qr_chl_/classtools-net/mob/quiz42/civilwarreviewgamesm0dfo_choe_UTF-8.png'></img>			</div>
+		</div>
+<div id="widgetCode" style="display:none">
+  <table width="10%" border="0" align="center" cellpadding="5">
+    <tr>
+    <td><b>URL</b></td>
+      <td><input type="text" size="75" style="font-size:small" value="http://www.classtools.net/mob/quiz42/civilwarreviewgamesm0dfo" /></td>
+    </tr>
+    <tr>
+     <td><b>Embed Code</b></td>
+      <td>
+      <textarea style="font-size:small" name="widgArea" id="widgArea" cols="75" rows="3"><p align='center'><iframe scrolling='no' src='../../index.html' width='570' height='250' frameborder=0></iframe></p>
+ </textarea></td>
+    </tr>
+  </table>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+</body>
+</html>
